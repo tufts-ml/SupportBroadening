@@ -35,12 +35,12 @@ if __name__ == "__main__":
             images = images.cuda()
             embeds = model(images)
             train_embeds = torch.vstack((train_embeds, embeds.cpu()))
-            train_labels = torch.vstack((train_labels, labels))
+            train_labels = torch.hstack((train_labels, labels))
         for images, labels in test_loader:
             images = images.cuda()
             embeds = model(images)
             test_embeds = torch.vstack((test_embeds, embeds.cpu()))
-            test_labels = torch.vstack((test_labels, labels))
+            test_labels = torch.hstack((test_labels, labels))
     # save caches
     torch.save(train_embeds, "train_embeds.pt")
     torch.save(train_labels, "train_labels.pt")
